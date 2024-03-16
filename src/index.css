@@ -185,11 +185,13 @@ p {
   transition: var(--transition);
   transform: rotate(20deg);
 }
+
 .elements img {
   padding: 1rem;
   width: 200px;
   height: 200px;
   border-radius: 2rem;
+  color: var(--clr-primary-6);
 }
 .info-more {
   display: flex;
@@ -211,7 +213,11 @@ p {
 .info-more {
   margin: 0 1rem 0 1rem;
 }
-
+.error {
+  text-align: left;
+  margin-right: 10px;
+  color: var(--clr-red-dark);
+}
 @media screen and (min-width: 300px) {
   .elements img {
     justify-content: center;
@@ -220,6 +226,7 @@ p {
     width: 120px;
     height: 150px;
   }
+
   .info-more {
     display: block;
   }
@@ -229,6 +236,7 @@ p {
     width: 180px;
     height: 200px;
   }
+
   .info-more {
     margin: 0 1rem 0;
     display: flex;
@@ -239,6 +247,7 @@ p {
     width: 300px;
     height: 250px;
   }
+
   .info-more {
     margin: 0 0.1rem 0 0;
   }
