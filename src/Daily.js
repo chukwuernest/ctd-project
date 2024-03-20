@@ -3,15 +3,15 @@ import { CiSearch } from 'react-icons/ci'
 import axios from 'axios'
 import Links from './links'
 
-function HomePage() {
+function Daily() {
   const [data, setData] = useState({
     celcius: 9,
-    humidity: 4,
+    sunrise: 4,
+    sunset: 4,
     speed: 2,
     latitude: 50.32,
     longitude: 2.22222,
     Elevation: 10,
-    cloud: 10,
     rain: 10,
     snowfall: 10,
     timezone: 'place',
@@ -28,7 +28,8 @@ function HomePage() {
 
   const handleClick = () => {
     if (Math.round(latitude) !== '') {
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=13.41&current=temperature_2m,relative_humidity_2m,rain,snowfall,cloud_cover,wind_speed_10m&timezone=auto `
+      const url = `
+      https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=13.41&daily=temperature_2m_max,sunrise,sunset,rain_sum,snowfall_sum,wind_speed_10m_max&timezone=auto&forecast_days=1`
 
       axios
         .get(url)
@@ -37,15 +38,15 @@ function HomePage() {
           console.log(res.data)
           setData({
             ...data,
-            celcius: res.data.current.temperature_2m,
-            humidity: res.data.current.relative_humidity_2m,
-            speed: res.data.current.wind_speed_10m,
+            celcius: res.data.daily.temperature_2m_max,
+            sunset: res.data.daily.sunset,
+            sunrise: res.data.daily.sunrise,
+            speed: res.data.daily.wind_speed_10m_max,
             latitude: res.data.latitude,
             longitude: res.data.longitude,
             elevation: res.data.elevation,
-            cloud: res.data.current.cloud_cover,
-            rain: res.data.current.rain,
-            snowfall: res.data.current.snowfall,
+            rain: res.data.daily.rain_sum,
+            snowfall: res.data.daily.snowfall_sum,
             timezone: res.data.timezone,
           })
           setError('')
@@ -61,16 +62,16 @@ function HomePage() {
     }
   }
   return (
-    <div className='section'>
-      <div className='section-container'>
-        <div className='weather-container'>
+    <div className='section' id='section'>
+      <div className='section-container' id='section-container'>
+        <div className='weather-container' id='weather-container'>
           <div className='current'>
-            <h4>this is the current weather focus</h4>
+            <h4>this is the daily weather focus</h4>
 
             <div className='pages'>
               <ul>
                 <li>
-                  <a href='../daily'>Daily</a>
+                  <a href='/'>current</a>
                 </li>
               </ul>
             </div>
@@ -78,7 +79,7 @@ function HomePage() {
           <div className='search'>
             <input
               type='text'
-              placeholder='enter latitude E.g 50 or 50.56552'
+              placeholder='enter city latitude E.g 50 or 50.56552'
               className='search-input'
               onChange={(e) => setlatitude(e.target.value)}
               onKeyDown={(e) => {
@@ -93,7 +94,7 @@ function HomePage() {
             <h4>{error}</h4>
           </div>
           <div className='elements'>
-            <img src='/data/tem.png' alt='weather image' />
+            <img src='/data/sunny.png' alt='weather image' />
             <h2>{Math.round(data.celcius)}°C</h2>
             <h3>location {data.timezone}</h3>
             <h4>
@@ -101,16 +102,19 @@ function HomePage() {
             </h4>
             <h4>{data.elevation}m above sea level</h4>
             <h4>
-              rainfall:{data.rain}mm,cloud:{data.cloud}%,snowfall:
-              {data.snowfall}cm
+              sunrise:{data.sunrise},sunset:
+              {data.sunset}
             </h4>
             {/* this is the section that deals with humidity and wind */}
             <div className='info'>
               <div className='info-more'>
-                <img src='/data/humidity.png' alt='humidity' />
-                <div className='humidity'>
-                  <p>{data.humidity}%</p>
-                  <p>humidity</p>
+                <img src='/data/rain.png' alt='humidity' />
+                <div className=''>
+                  <p> rainfall:{data.rain}mm</p>
+                  <p>
+                    snowfall:
+                    {data.snowfall}cm
+                  </p>
                 </div>
               </div>
               <div className='info-more'>
@@ -129,4 +133,4 @@ function HomePage() {
   )
 }
 
-export default HomePage
+export default Daily
