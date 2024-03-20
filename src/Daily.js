@@ -57,7 +57,7 @@ function Daily() {
           } else {
             setError('')
           }
-          console.log(err)
+          // console.log(err)
         })
     }
   }

@@ -56,7 +56,7 @@ function HomePage() {
           } else {
             setError('')
           }
-          console.log(err)
+          // console.log(err)
         })
     }
   }
