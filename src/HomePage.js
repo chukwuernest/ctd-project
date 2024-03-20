@@ -34,7 +34,7 @@ function HomePage() {
         .get(url)
         .then((res) => {
           // to get the object to do what models that you choose to display use
-          console.log(res.data)
+          // console.log(res.data)
           setData({
             ...data,
             celcius: res.data.current.temperature_2m,
@@ -56,7 +56,7 @@ function HomePage() {
           } else {
             setError('')
           }
-          // console.log(err)
+          console.log(err)
         })
     }
   }
